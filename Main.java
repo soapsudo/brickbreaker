@@ -30,9 +30,12 @@ public class Main extends JFrame  {
         setVisible(true);
 
         Player player = new Player();
+        player.setX(getWidth() / 2 - player.width);
+        player.setY(getHeight() - getHeight() / 4);
+
         DrawPane dp = new DrawPane(player);
 
-        addKeyListener(new KeyboardInput(player));
+        addKeyListener(new KeyboardInput(player, this));
 
         Thread loop = new Thread(new MainLoop(this, dp));
         loop.start();

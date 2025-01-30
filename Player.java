@@ -1,5 +1,5 @@
 public class Player {
-    final int width = 50;
+    final int width = 125;
     final int height = 15;
 
     int x;
