@@ -4,9 +4,6 @@ import java.awt.*;
 
 public class Main extends JFrame  {
 
-
-    public static long startTime = System.currentTimeMillis();
-
     public static void main(String[] args){
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -21,6 +18,7 @@ public class Main extends JFrame  {
     private Main(){
         super("BrickBreaker");
 
+
         ImageIcon icon = new ImageIcon("brickbreakerlogo.png");
 
         setTitle("BrickBreaker");
@@ -31,7 +29,10 @@ public class Main extends JFrame  {
         setResizable(false);
         setVisible(true);
 
-        DrawPane dp = new DrawPane();
+        Player player = new Player();
+        DrawPane dp = new DrawPane(player);
+
+        addKeyListener(new KeyboardInput(player));
 
         Thread loop = new Thread(new MainLoop(this, dp));
         loop.start();

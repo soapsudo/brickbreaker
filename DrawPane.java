@@ -5,15 +5,22 @@ public class DrawPane extends JPanel {
 
     public boolean gameOver = false;
 
-    private PlayerDot playerDot;
+    private final PlayerDot playerDot;
+    private final Player player;
+
     private long lastUpdateTime;
     private int dx = -1;
     private int dy = -1;
 
-    DrawPane() {
+    DrawPane(Player player) {
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
         lastUpdateTime = System.currentTimeMillis();
-        playerDot = new PlayerDot(getWidth() / 2, getHeight() / 2);
+
+        this.playerDot = new PlayerDot(getWidth() / 2, getHeight() / 2);
+        this.player = player;
+
+        this.player.setX(getWidth() / 2 - this.player.width);
+        this.player.setY(getHeight() - getHeight() / 3);
 
     }
 
@@ -26,8 +33,10 @@ public class DrawPane extends JPanel {
         lastUpdateTime = currentTime;
 
         updatePosition(timeDiff);
+
         if(checkForCollision()){
             g.fillRect(playerDot.getX(), playerDot.getY(), playerDot.width, playerDot.height);
+            g.fillRect(player.getX(), player.getY(), player.width, player.height);
         }else {
             g.drawString("GAME OVER!", getWidth() / 2, getHeight() / 2);
         }
@@ -36,18 +45,18 @@ public class DrawPane extends JPanel {
     }
 
     private void updatePosition(long timeDiff) {
-        playerDot.setX(playerDot.getX() + (int) (dx * (timeDiff / 4)));
-        playerDot.setY(playerDot.getY() + (int) (dy * (timeDiff / 4)));
+        playerDot.setX(playerDot.getX() + (int) (dx * (timeDiff / 3)));
+        playerDot.setY(playerDot.getY() + (int) (dy * (timeDiff / 3)));
     }
 
     private boolean checkForCollision() {
-        if (playerDot.getX() <= 0 || playerDot.getX() + playerDot.width >= getWidth()) {
+        if (playerDot.getCollisionX() < 0 || playerDot.getCollisionX() > getWidth()) {
             dx *= -1;
         }
-        if (playerDot.getY() <= 0) {
+        if (playerDot.getCollisionY() < 0) {
             dy *= -1;
         }
-        if(playerDot.getY() + playerDot.height >= getHeight()){
+        if(playerDot.getCollisionY() >= getHeight()){
             gameOver = true;
             return false;
         }

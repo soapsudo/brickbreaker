@@ -11,14 +11,20 @@ public class PlayerDot {
 
     }
 
-
-
     public int getX(){
         return x;
     }
 
     public int getY(){
         return y;
+    }
+
+    public int getCollisionX(){
+        return x + width / 2;
+    }
+
+    public int getCollisionY(){
+        return y + height / 2;
     }
 
     public void setX(int x){
