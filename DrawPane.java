@@ -3,8 +3,17 @@ import java.awt.*;
 
 public class DrawPane extends JPanel {
 
+    private PlayerDot playerDot;
+
+    private long lastUpdateTime;
+    private int dx = -1;
+    private int dy = -1;
+
     DrawPane() {
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        lastUpdateTime = System.currentTimeMillis();
+        playerDot = new PlayerDot(getWidth() / 2, getHeight() / 2);
+
     }
 
     @Override
@@ -12,8 +21,26 @@ public class DrawPane extends JPanel {
         super.paintComponent(g);
 
         long currentTime = System.currentTimeMillis();
-        long timeDiff = currentTime - Main.startTime;
+        long timeDiff = currentTime - lastUpdateTime;
+        lastUpdateTime = currentTime;
 
-        g.fillRect((int) (timeDiff / 10), 10, 10, 10);
+        updatePosition(timeDiff);
+        checkForCollision();
+
+        g.fillRect(playerDot.getX(), playerDot.getY(), playerDot.width, playerDot.height);
+    }
+
+    private void updatePosition(long timeDiff) {
+        playerDot.setX(playerDot.getX() + (int) (dx * (timeDiff / 4)));
+        playerDot.setY(playerDot.getY() + (int) (dy * (timeDiff / 4)));
+    }
+
+    private void checkForCollision() {
+        if (playerDot.getX() <= 0 || playerDot.getX() + playerDot.width >= getWidth()) {
+            dx *= -1;
+        }
+        if (playerDot.getY() <= 0 || playerDot.getY() + playerDot.height >= getHeight()) {
+            dy *= -1;
+        }
     }
 }
