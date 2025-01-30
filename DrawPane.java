@@ -3,14 +3,17 @@ import java.awt.*;
 
 public class DrawPane extends JPanel {
 
-    DrawPane(){
+    DrawPane() {
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawLine(10, 10, 20, 20);
+        long currentTime = System.currentTimeMillis();
+        long timeDiff = currentTime - Main.startTime;
+
+        g.fillRect((int) (timeDiff / 10), 10, 10, 10);
     }
 }

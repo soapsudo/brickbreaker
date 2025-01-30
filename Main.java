@@ -5,6 +5,8 @@ import java.awt.*;
 public class Main extends JFrame  {
 
 
+    public static long startTime = System.currentTimeMillis();
+
     public static void main(String[] args){
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -29,6 +31,9 @@ public class Main extends JFrame  {
         setVisible(true);
 
         DrawPane dp = new DrawPane();
+
+        Thread loop = new Thread(new MainLoop(this));
+        loop.start();
 
         this.add(dp);
     }
