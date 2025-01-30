@@ -1,32 +1,36 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Main extends JFrame{
+
+public class Main extends JFrame  {
+
+
+    public static void main(String[] args){
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Main();
+            }
+        });
+
+    }
 
     private Main(){
         super("BrickBreaker");
 
+        ImageIcon icon = new ImageIcon("brickbreakerlogo.png");
+
         setTitle("BrickBreaker");
+        setIconImage(icon.getImage());
+        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         setSize(800, 600);
+        setVisible(true);
+
+        DrawPane dp = new DrawPane();
+
+        this.add(dp);
     }
 
-    static class DrawPane extends JPanel{
-        public void paintComponent(Graphics g){
-            
-        }
-    }
-
-    public static void main(String[] args){
-        Main main = new Main();
-        main.frameInit();
-    }
-
-    private static void loop(JFrame frame, JPanel panel){
-        while(true){
-
-        }
-
-    }
 }
