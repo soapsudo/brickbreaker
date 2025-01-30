@@ -28,11 +28,12 @@ public class Main extends JFrame  {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
+        setResizable(false);
         setVisible(true);
 
         DrawPane dp = new DrawPane();
 
-        Thread loop = new Thread(new MainLoop(this));
+        Thread loop = new Thread(new MainLoop(this, dp));
         loop.start();
 
         this.add(dp);
