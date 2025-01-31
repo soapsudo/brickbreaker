@@ -38,6 +38,9 @@ public class Main extends JFrame  {
         addKeyListener(new KeyboardInput(player, this));
 
         Thread loop = new Thread(new MainLoop(this, dp));
+        Thread brickLoop = new Thread(new BrickLoop(this, dp));
+
+        brickLoop.start();
         loop.start();
 
         this.add(dp);
