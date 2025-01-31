@@ -7,4 +7,4 @@
 - Source code is available in the class files.
 
 ## License 
-- This software is registered under the GPL 2.0 license.
+- This software is registered under the GPL 3.0 license.
