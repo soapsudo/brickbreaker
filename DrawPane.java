@@ -108,59 +108,57 @@ public class DrawPane extends JPanel {
             for (int j = 0; j < printBricks.size(); j++) {
                 Brick brick = printBricks.get(j);
 
-                if(brick.accessed){
-                    try{
-                        wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }else{
-                    brick.accessed = true;
-                    if(!brick.hit){
-                        g2d.setStroke(new BasicStroke(10));
-                        g2d.setColor(c);
-                        g2d.drawRect(brick.x, brick.y, brick.width, brick.height);
-
-                        g2d.setColor(Color.BLACK);
-                        g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
-
-                    }else {
-                        g2d.setStroke(new BasicStroke(10));
-                        g2d.setColor(c);
-                        g2d.drawRect(brick.x, brick.y, brick.width, brick.height);
-
-                        g2d.setColor(c);
-                        g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
-                    }
-                    brick.accessed = false;
-                }
-            }
-        }
-    }
-
-    public void checkBrickCollision(){
-        for (int i = 0; i < bricks.size(); i++) {
-            ArrayList<Brick> brickRow = bricks.get(i);
-            for (int j = 0; j < brickRow.size(); j++) {
-                Brick brick = brickRow.get(j);
-
-                if(brick.accessed){
+                while (brick.accessed) {
                     try {
                         wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                }else{
-                    brick.accessed = true;
-                    if (!brick.hit) {
-                        if ((playerDot.getCollisionX() < brick.getCollisionX() + brick.width && playerDot.getCollisionX() > brick.getCollisionX())
-                                && (playerDot.getCollisionY() > brick.getCollisionY() && playerDot.getCollisionY() < brick.getCollisionY() + brick.height)) {
-                            brick.setHit(true);
-                            dy *= -1;
-                        }
-                    }
-                    brick.accessed = false;
                 }
+                brick.accessed = true;
+                if (!brick.hit) {
+                    g2d.setStroke(new BasicStroke(10));
+                    g2d.setColor(c);
+                    g2d.drawRect(brick.x, brick.y, brick.width, brick.height);
+
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
+
+                } else {
+                    g2d.setStroke(new BasicStroke(10));
+                    g2d.setColor(c);
+                    g2d.drawRect(brick.x, brick.y, brick.width, brick.height);
+
+                    g2d.setColor(c);
+                    g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
+                }
+                brick.accessed = false;
+            }
+        }
+    }
+
+    public void checkBrickCollision() {
+        for (int i = 0; i < bricks.size(); i++) {
+            ArrayList<Brick> brickRow = bricks.get(i);
+            for (int j = 0; j < brickRow.size(); j++) {
+                Brick brick = brickRow.get(j);
+
+                while (brick.accessed) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                brick.accessed = true;
+                if (!brick.hit) {
+                    if ((playerDot.getCollisionX() < brick.getCollisionX() + brick.width && playerDot.getCollisionX() > brick.getCollisionX())
+                            && (playerDot.getCollisionY() > brick.getCollisionY() && playerDot.getCollisionY() < brick.getCollisionY() + brick.height)) {
+                        brick.setHit(true);
+                        dy *= -1;
+                    }
+                }
+                brick.accessed = false;
             }
         }
     }
