@@ -124,13 +124,6 @@ public class DrawPane extends JPanel {
                     g2d.setColor(Color.BLACK);
                     g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
 
-                } else {
-                    g2d.setStroke(new BasicStroke(10));
-                    g2d.setColor(c);
-                    g2d.drawRect(brick.x, brick.y, brick.width, brick.height);
-
-                    g2d.setColor(c);
-                    g2d.fillRect(brick.x, brick.y, brick.width, brick.height);
                 }
                 brick.accessed = false;
             }
