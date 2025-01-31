@@ -41,11 +41,11 @@ public class DrawPane extends JPanel {
 
         updatePosition(timeDiff);
 
-        if(checkForCollision()){
-            drawBricks(g2d);
+        if (checkForCollision()) {
             g2d.fillRect(playerDot.getX(), playerDot.getY(), playerDot.width, playerDot.height);
             g2d.fillRect(player.getX(), player.getY(), player.width, player.height);
-        }else{
+            drawBricks(g2d);
+        } else {
             g2d.setFont(f);
             g2d.drawString("GAME OVER!", (int) (getWidth() / 2.5 - 40), getHeight() / 2);
         }
@@ -71,7 +71,7 @@ public class DrawPane extends JPanel {
             dy *= -1;
         }
 
-        if(playerDot.getCollisionY() >= getHeight()){
+        if (playerDot.getCollisionY() >= getHeight()) {
             gameOver = true;
             return false;
         }
@@ -79,7 +79,7 @@ public class DrawPane extends JPanel {
         return true;
     }
 
-    private ArrayList<ArrayList<Brick>> initializeBricks(){
+    private ArrayList<ArrayList<Brick>> initializeBricks() {
 
         int rows = 5;
         int columns = 5;
@@ -87,11 +87,11 @@ public class DrawPane extends JPanel {
         ArrayList<ArrayList<Brick>> brickGrid = new ArrayList<>();
 
         for (int i = 0; i < rows; i++) {
-            ArrayList<Brick> brickRow= new ArrayList<>();
+            ArrayList<Brick> brickRow = new ArrayList<>();
 
             for (int j = 0; j < columns; j++) {
                 Brick brick = new Brick();
-                brick.x = j * brick.width  + 15;
+                brick.x = j * brick.width + 15;
                 brick.y = i * brick.height + 15;
                 brickRow.add(brick);
             }
@@ -101,7 +101,7 @@ public class DrawPane extends JPanel {
         return brickGrid;
     }
 
-    public void drawBricks(Graphics2D g2d){
+    public void drawBricks(Graphics2D g2d) {
 
         for (int i = 0; i < bricks.size(); i++) {
             ArrayList<Brick> printBricks = bricks.get(i);

@@ -4,7 +4,7 @@ public class Brick {
 
     public boolean hit;
 
-    public volatile boolean accessed;
+    public boolean accessed;
 
     final int width = 150;
     final int height = 40;
