@@ -138,7 +138,7 @@ public class DrawPane extends JPanel {
 
                 while (brick.accessed) {
                     try {
-                        wait();
+                        Thread.sleep(1);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
